@@ -1,0 +1,84 @@
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:veterinary_managment/model/product.dart';
+import 'package:veterinary_managment/pattern.dart';
+import 'package:veterinary_managment/provider/app_provider.dart';
+import 'package:veterinary_managment/utilities/navigator_helper.dart';
+import 'package:veterinary_managment/view/add_product_page.dart';
+import 'package:veterinary_managment/widget/cards/details_card.dart';
+import 'package:veterinary_managment/widget/k_text.dart';
+
+class ProductDetailsPage extends ConsumerStatefulWidget {
+  final Product product;
+  const ProductDetailsPage({Key? key, required this.product}) : super(key: key);
+
+  @override
+  ConsumerState<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
+  Product? editedProduct;
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    final usd = ref.read(usdProvider.notifier);
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const KText(
+              "التفاصيل"
+          ),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              (editedProduct ?? widget.product).id == null?
+              const Icon(Icons.qr_code_2, size: 300,):
+              BarcodeWidget(
+                barcode: Barcode.code128(),
+                data: (editedProduct ?? widget.product).id!,
+                width: 320,
+                color: AppPattern.secondaryColor!,
+                style: GoogleFonts.lemonada(color: AppPattern.secondaryColor!),
+              ),
+              DetailsCard(title: "اسم الدواء:", subTitle: (editedProduct ?? widget.product).name??""),
+              DetailsCard(title: "السعر بالليرة:", subTitle: (((editedProduct ?? widget.product).price??0) * usd.usdPrice).toString()),
+              DetailsCard(title: "السعر بالدولار:", subTitle: (editedProduct ?? widget.product).price.toString()),
+              DetailsCard(title: "العدد:", subTitle: (editedProduct ?? widget.product).count.toString()),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: TextButton(
+                  onPressed: (){
+                    NavigatorHelper.push(
+                      context,
+                      AddProductPage(
+                        product: (editedProduct ?? widget.product),
+                        callback: (Product prdct){
+                          setState(() {
+                            editedProduct = prdct;
+                          });
+                        },
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: KText("تعديل", color: AppPattern.mainColor,),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
