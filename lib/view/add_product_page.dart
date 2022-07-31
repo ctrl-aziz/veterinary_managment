@@ -1,7 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:veterinary_managment/model/product.dart';
 import 'package:veterinary_managment/pattern.dart';
@@ -71,7 +70,10 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                       data: (product.productID ?? widget.product!.id)!,
                       width: 320,
                       color: AppPattern.secondaryColor!,
-                      style: GoogleFonts.lemonada(color: AppPattern.secondaryColor!),
+                      style: TextStyle(
+                        fontFamily: "Lemonada",
+                        color: AppPattern.secondaryColor!,
+                      ),
                     ),
                   ),
                   SizedBox(height: AppPattern.kPadding/2,),

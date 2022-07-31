@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:veterinary_managment/pattern.dart';
 
 import 'k_text.dart';
@@ -32,8 +31,14 @@ class KInput extends StatelessWidget {
         controller: controller,
         initialValue: controller == null ? initialValue : null,
         style: keyboardType == TextInputType.text ?
-        GoogleFonts.cairo(color: AppPattern.secondaryColor) :
-        GoogleFonts.lemonada(color: AppPattern.secondaryColor),
+        TextStyle(
+          fontFamily: "Cairo",
+          color: AppPattern.secondaryColor!,
+        ) :
+        TextStyle(
+          fontFamily: "Lemonada",
+          color: AppPattern.secondaryColor!,
+        ),
         keyboardType: keyboardType,
         decoration: InputDecoration(label: KText(title)),
         onChanged: onChanged,

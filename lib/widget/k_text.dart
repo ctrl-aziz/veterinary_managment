@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:veterinary_managment/pattern.dart';
 
 enum TextType {text, number}
@@ -21,10 +20,12 @@ class KText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: textType == TextType.number ? GoogleFonts.lemonada(
+      style: textType == TextType.number ? TextStyle(
+        fontFamily: "Lemonada",
         fontSize: fontSize,
         color: color ?? AppPattern.secondaryColor,
-      ) : GoogleFonts.cairo(
+      ) : TextStyle(
+        fontFamily: "Cairo",
         fontSize: fontSize,
         color: color ?? AppPattern.secondaryColor,
       ),

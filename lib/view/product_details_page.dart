@@ -1,7 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:veterinary_managment/model/product.dart';
 import 'package:veterinary_managment/pattern.dart';
 import 'package:veterinary_managment/provider/app_provider.dart';
@@ -44,7 +43,10 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                 data: (editedProduct ?? widget.product).id!,
                 width: 320,
                 color: AppPattern.secondaryColor!,
-                style: GoogleFonts.lemonada(color: AppPattern.secondaryColor!),
+                style: TextStyle(
+                  fontFamily: "Lemonada",
+                  color: AppPattern.secondaryColor!,
+                ),
               ),
               DetailsCard(title: "اسم الدواء:", subTitle: (editedProduct ?? widget.product).name??""),
               DetailsCard(title: "السعر بالليرة:", subTitle: (((editedProduct ?? widget.product).price??0) * usd.usdPrice).toString()),

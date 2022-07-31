@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppPattern{
   //0xFF262626
@@ -39,7 +38,8 @@ class AppPattern{
     ),
     cardColor: secondaryColor,
     inputDecorationTheme: InputDecorationTheme(
-      labelStyle: GoogleFonts.cairo(
+      labelStyle: TextStyle(
+        fontFamily: "Cairo",
         color: secondaryColor,
       ),
       border: OutlineInputBorder(

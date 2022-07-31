@@ -37,7 +37,7 @@ dependencies:
   hive: ^2.2.3
   qr_code_scanner: ^1.0.0
   barcode_widget: ^2.0.2
-  google_fonts: ^3.0.1
+#  google_fonts: ^3.0.1
   path_provider: ^2.0.11
   riverpod: ^1.0.3
   flutter_riverpod: ^1.0.4
@@ -82,10 +82,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: fonts/Cairo-Regular.ttf
+    - family: Lemonada
+      fonts:
+        - asset: fonts/Lemonada-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
