@@ -62,11 +62,11 @@ class HomePage extends ConsumerWidget {
                     children: [
                       MainCard(
                         title: "الاجمالي بالليرة",
-                        number: MathHelper.roundDecimal(product.totalPrice! * usd.usdPrice),
+                        number: MathHelper.roundDecimalDouble(product.totalPrice! * usd.usdPrice),
                       ),
                       MainCard(
                         title: "الاجمالي بالدولار",
-                        number: MathHelper.roundDecimal(product.totalPrice!),
+                        number: MathHelper.roundDecimalDouble(product.totalPrice!),
                       ),
                     ],
                   ),
@@ -129,7 +129,7 @@ class HomePage extends ConsumerWidget {
   void _checkProduct(BuildContext context, String? productID) async{
 
     if(productID == null) return;
-    var box = Hive.box('products');
+    Box<Product> box = Hive.box<Product>('products');
 
     dynamic product = box.get(productID);
 

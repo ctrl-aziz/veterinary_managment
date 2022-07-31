@@ -1,9 +1,12 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:veterinary_managment/model/product.dart';
 import 'package:veterinary_managment/pattern.dart';
 import 'package:veterinary_managment/provider/app_provider.dart';
+import 'package:veterinary_managment/provider/product_provider.dart';
+import 'package:veterinary_managment/utilities/math_helper.dart';
 import 'package:veterinary_managment/utilities/navigator_helper.dart';
 import 'package:veterinary_managment/view/add_product_page.dart';
 import 'package:veterinary_managment/widget/cards/details_card.dart';
@@ -24,6 +27,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final usd = ref.read(usdProvider.notifier);
+    final product = ref.read(productProvider.notifier);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -49,29 +53,67 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                 ),
               ),
               DetailsCard(title: "اسم الدواء:", subTitle: (editedProduct ?? widget.product).name??""),
-              DetailsCard(title: "السعر بالليرة:", subTitle: (((editedProduct ?? widget.product).price??0) * usd.usdPrice).toString()),
+              DetailsCard(title: "السعر بالليرة:", subTitle: MathHelper.roundDecimalDouble(((editedProduct ?? widget.product).price??0) * usd.usdPrice)),
               DetailsCard(title: "السعر بالدولار:", subTitle: (editedProduct ?? widget.product).price.toString()),
               DetailsCard(title: "العدد:", subTitle: (editedProduct ?? widget.product).count.toString()),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: TextButton(
-                  onPressed: (){
-                    NavigatorHelper.push(
-                      context,
-                      AddProductPage(
-                        product: (editedProduct ?? widget.product),
-                        callback: (Product prdct){
-                          setState(() {
-                            editedProduct = prdct;
-                          });
-                        },
+                padding: EdgeInsets.symmetric(vertical: AppPattern.kPadding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: (){
+                        NavigatorHelper.push(
+                          context,
+                          AddProductPage(
+                            product: (editedProduct ?? widget.product),
+                            callback: (Product prdct){
+                              setState(() {
+                                editedProduct = prdct;
+                              });
+                            },
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: AppPattern.kPadding),
+                        child: KText("تعديل", color: AppPattern.mainColor,),
                       ),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: KText("تعديل", color: AppPattern.mainColor,),
-                  ),
+                    ),
+                    TextButton(
+                      onPressed: () async{
+                        Box<Product> box = Hive.box<Product>('products');
+                        try{
+                          product.setLoading();
+                          await box.delete((editedProduct ?? widget.product).id).then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: KText("تم الحذف بنجاح"),
+                              ),
+                            );
+                            product.getProducts();
+                            Navigator.of(context).pop();
+                          });
+                        }catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: KText("هنالك خطأ"),
+                            ),
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: AppPattern.kPadding),
+                        child: KText(
+                          "حذف",
+                          color: AppPattern.secondaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

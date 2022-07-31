@@ -26,13 +26,13 @@ class ProductProvider extends StateNotifier<bool>{
 
   Future<void> init() async {
     Hive.registerAdapter(ProductAdapter());
-    await HiveHelper.openHiveBox('products');
+    await HiveHelper.openHiveBox<Product>('products');
     getProducts();
   }
 
   final List<Product> products = [];
-  getProducts(){
-    var box = Hive.box('products');
+  void getProducts(){
+    Box<Product> box = Hive.box<Product>('products');
     products.clear();
     for (Product product in box.values) {
       products.add(product);

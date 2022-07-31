@@ -30,7 +30,7 @@ class ProductCard extends ConsumerWidget {
         subtitle: Directionality(
           textDirection: TextDirection.ltr,
           child: KText(
-            "${MathHelper.roundDecimal(product.price! * usd.usdPrice)} SP | \$ ${product.price}",
+            "${MathHelper.roundDecimalDouble(product.price! * usd.usdPrice)} SP | \$ ${product.price}",
             textType: TextType.number,
             textAlign: TextAlign.end,
           ),

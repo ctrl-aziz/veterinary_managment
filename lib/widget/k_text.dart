@@ -8,12 +8,14 @@ class KText extends StatelessWidget {
   final double? fontSize;
   final Color? color;
   final TextAlign? textAlign;
+  final FontWeight? fontWeight;
   const KText(this.text, {
     Key? key,
     this.textType = TextType.text,
     this.color,
     this.fontSize,
     this.textAlign,
+    this.fontWeight,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class KText extends StatelessWidget {
       ) : TextStyle(
         fontFamily: "Cairo",
         fontSize: fontSize,
+        fontWeight: fontWeight,
         color: color ?? AppPattern.secondaryColor,
       ),
       textAlign: textAlign,

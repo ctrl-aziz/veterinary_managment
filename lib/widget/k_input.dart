@@ -26,7 +26,7 @@ class KInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
+      padding: EdgeInsets.symmetric(vertical: AppPattern.kPadding/3, horizontal: (AppPattern.kPadding/3)*2),
       child: TextFormField(
         controller: controller,
         initialValue: controller == null ? initialValue : null,

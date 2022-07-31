@@ -122,12 +122,12 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                   ),
                   KInput(
                     "السعر بالليرة",
-                    controller: _syPriceController..text = widget.product != null ? (widget.product!.price! * usd.usdPrice).toString() : "",
+                    controller: _syPriceController..text = widget.product != null ? MathHelper.roundDecimalDouble(widget.product!.price! * usd.usdPrice) : "",
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.start,
                     onChanged: (val){
-                      _dPriceController.text = MathHelper.roundDecimal(double.parse(_syPriceController.text.isEmpty ? "0" : _syPriceController.text) / usd.usdPrice);
+                      _dPriceController.text = MathHelper.roundDecimalDouble(double.parse(_syPriceController.text.isEmpty ? "0" : _syPriceController.text) / usd.usdPrice);
                     },
                   ),
                   KInput(
@@ -137,7 +137,7 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.start,
                     onChanged: (val){
-                      _syPriceController.text = MathHelper.roundDecimal(double.parse(_dPriceController.text.isEmpty ? "0" : _dPriceController.text) * usd.usdPrice);
+                      _syPriceController.text = MathHelper.roundDecimalDouble(double.parse(_dPriceController.text.isEmpty ? "0" : _dPriceController.text) * usd.usdPrice);
                     },
                   ),
                   KInput(
@@ -148,7 +148,7 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                     textAlign: TextAlign.start,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: EdgeInsets.symmetric(vertical: AppPattern.kPadding),
                     child: TextButton(
                       onPressed: (){
                         product.setLoading();
@@ -186,7 +186,7 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                         Navigator.of(context).pop();
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: EdgeInsets.symmetric(horizontal: AppPattern.kPadding),
                         child: KText("حفظ", color: AppPattern.mainColor,),
                       ),
                     ),
@@ -201,7 +201,7 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
   }
 
   void _addProduct(Product product){
-    var box = Hive.box('products');
+    Box<Product> box = Hive.box<Product>('products');
 
     box.put(product.id, product);
   }
