@@ -40,6 +40,10 @@ class ProductProvider extends StateNotifier<bool>{
     state = false;
   }
 
+  void clear() {
+    productID = null;
+  }
+
 
 }
 

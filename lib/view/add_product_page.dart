@@ -172,17 +172,13 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                         );
                         if(widget.callback != null) widget.callback!(prdct);
                         product.getProducts();
+                        product.clear();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: widget.product != null ? Row(
+                            content: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
-                                KText("تم التعديل بنجاح"),
-                              ],
-                            ) : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                KText("تم إضافة المنتج"),
+                                KText("تم الحفظ بنجاح"),
                               ],
                             ),
                           ),
@@ -191,7 +187,7 @@ class _AddProductPageState extends ConsumerState<AddProductPage> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: widget.product == null ? KText("إضافة", color: AppPattern.mainColor,) : KText("حفظ", color: AppPattern.mainColor,),
+                        child: KText("حفظ", color: AppPattern.mainColor,),
                       ),
                     ),
                   ),

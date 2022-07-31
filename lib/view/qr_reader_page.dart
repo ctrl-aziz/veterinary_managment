@@ -16,6 +16,7 @@ class _QrReaderPageState extends State<QrReaderPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  int _read = 0;
 
 
   @override
@@ -67,8 +68,11 @@ class _QrReaderPageState extends State<QrReaderPage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        Navigator.of(context).pop();
-        widget.onResult(scanData.code);
+        _read++;
+        if(_read == 1){
+          Navigator.of(context).pop();
+          widget.onResult(scanData.code);
+        }
       });
     });
   }

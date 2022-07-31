@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:veterinary_managment/model/product.dart';
 import 'package:veterinary_managment/pattern.dart';
 import 'package:veterinary_managment/provider/app_provider.dart';
 import 'package:veterinary_managment/provider/product_provider.dart';
@@ -135,7 +136,7 @@ class HomePage extends ConsumerWidget {
     if(product == null){
       NavigatorHelper.push(
         context,
-        AddProductPage(product: product),
+        AddProductPage(product: Product(id: productID, name: "", price: 0, count: 1)),
       );
     }else{
       NavigatorHelper.push(
