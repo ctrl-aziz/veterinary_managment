@@ -158,6 +158,17 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             SizedBox(height: AppPattern.kPadding,),
             Divider(color: AppPattern.secondaryColor,),
+
+
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  KText("الدكتور حسام السماعيل"),
+                ],
+              ),
+            ),
           ],
         ),
       ),
