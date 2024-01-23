@@ -160,15 +160,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Divider(color: AppPattern.secondaryColor,),
 
 
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  KText("الدكتور حسام السماعيل"),
-                ],
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: const [
+            //       KText("الدكتور حسام السماعيل"),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
